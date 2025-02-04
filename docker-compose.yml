@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./abastecimento
+      dockerfile: Dockerfile
+    container_name: abastecimentos-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./abastecimentos-front
+      dockerfile: Dockerfile
+    container_name: abastecimentos-frontend
+    ports:
+      - "4200:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    driver: bridge
